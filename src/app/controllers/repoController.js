@@ -7,19 +7,24 @@ router.use(authMiddleware);
 
 router.post('/addRepo/toId/:id', async (req, res) => {
     try {
-        const { email, repos } = req.body;
+        const { repos } = req.body;
         const id = req.params.id;
 
-        const user = await User.findById({ _id:id });
+        const user = await User.findById(id);
         repos.map( async (repo) => {
             user.repos.push(repo);
-            const upd = await User.findByIdAndUpdate(user.id, user);
+            const updatedUser = await User.findByIdAndUpdate(user.id, user);
     
-            res.send({status: 200, message: 'succesfully updated', upd: upd, repo: repo});
+            res.send({status: 200,
+                    message: 'succesfully updated',
+                    updated: updatedUser,
+                    repo: repo});
         });
 
     } catch (e) {
-        return res.status(404).send({status: 404, message: 'failed to update', error: e.message});
+        return res.status(400).send({status: 400,
+                                    message: 'failed to update',
+                                    error: e.message});
     }
 });
 
@@ -27,7 +32,7 @@ router.get('/findAllById/:id', async (req, res) => {
     const userId = req.params.id;
     
     try {
-        const user = await User.findById({ _id: userId });
+        const user = await User.findById(userId);
 
         if(!user) {
             return res.status(400).send({
@@ -48,7 +53,7 @@ router.get('/findAllById/:id', async (req, res) => {
         return res.status(400).send({ 
             status: 400,
             message: 'failed to fetch repos',
-            err: e.message
+            error: e.message
         });
     }
 });
@@ -64,7 +69,7 @@ router.get('/findRepoByName/:name/byUserId/:id', async (req, res) => {
             if(namedRepo.length === 0){
                         return res.status(400).send({
                         status: 400,
-                        message: 'repo not found in this users repo'
+                        message: "repo not found in this user's repos"
                 });
             } else {
                 return res.status(200).send({
@@ -77,8 +82,8 @@ router.get('/findRepoByName/:name/byUserId/:id', async (req, res) => {
     } catch(e) {
         return res.status(400).send({ 
             status: 400,
-            message: 'user not found',
-            err: e.message
+            message: 'failed to load repo',
+            error: e.message
         });
     }
 });
@@ -88,16 +93,21 @@ router.delete('/deleteRepoByName/:name/byUserId/:id', async (req, res) => {
         const repoName = req.params.name;
         const id = req.params.id;
 
-        const user = await User.findById({ _id:id });
+        const user = await User.findById(id);
         await user.repos.map( async (repo) => {
             if (repo.name === repoName) {
                 user.repos = user.repos.filter((repo) => repo.name !== repoName);
-                const upd = await User.findByIdAndUpdate(user.id, user);
-                res.send({status: 200, message: 'succesfully deleted', upd: upd, repo: repo});
+                const updatedUser = await User.findByIdAndUpdate(user.id, user);
+                res.send({status: 200,
+                        message: 'succesfully deleted',
+                        updated: updatedUser,
+                        repo: repo});
             }
         });
-    } catch (err) {
-        return res.status(404).send({status: 404, message: "there's no user with the given id", error: err.message});
+    } catch (e) {
+        return res.status(400).send({status: 400,
+                                     message: "failed to delete",
+                                    error: e.message});
     }
 });
 

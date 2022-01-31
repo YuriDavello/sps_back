@@ -30,14 +30,14 @@ router.post('/register', async (req, res) => {
         return res.status(301).send({ 
             user: user,
             status: 301,
-            message: 'user created!'
+            message: 'user created'
         });
         
-    } catch(err) {
+    } catch(e) {
         return res.status(400).send({ 
             status: 400,
             message: 'failed to register',
-            err: err.message
+            error: e.message
         });
     }
 });
@@ -73,11 +73,11 @@ router.post('/authenticate', async (req, res) => {
             message: 'user authenticated'
         });
 
-    } catch(err) {
+    } catch(e) {
         return res.status(400).send({ 
             status: 400,
             message: 'failed to register',
-            err: err.message
+            error: e.message
         });
     }
 });

@@ -17,8 +17,8 @@ const isBearer = (tokenType) => {
 }
 
 const authenticateToken = (token, req, res, next) => {    
-    jwt.verify(token, auth.key, (err, decoded) => {
-        if (err) return res.status(401).send({ error: 'Invalid token' });
+    jwt.verify(token, auth.key, (e, decoded) => {
+        if (e) return res.status(401).send({ error: 'Invalid token' });
         req.userId = decoded.id;
 
         return next();
