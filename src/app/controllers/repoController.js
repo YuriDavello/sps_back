@@ -51,15 +51,33 @@ router.get('/findRepoByName/:name/byUserId/:id', async (req, res) => {
                     status: 200,
                     message: 'repo found',
                     repo: namedRepo
-                })
+                });
             }
         }
     } catch(err) {
         return res.status(400).send({ 
             status: 400,
-            message: 'failed to fetch repo',
+            message: 'user not found',
             err: err.message
         });
+    }
+});
+
+router.delete('/deleteRepoByName/:name/byUserId/:id', async (req, res) => {
+    try {
+        const repoName = req.params.name;
+        const id = req.params.id;
+
+        const user = await User.findById({ _id:id });
+        await user.repos.map( async (repo) => {
+            if (repo.name === repoName) {
+                user.repos = user.repos.filter((repo) => repo.name !== repoName);
+                const upd = await User.findByIdAndUpdate(user.id, user);
+                res.send({status: 200, message: 'succesfully deleted', upd: upd, repo: repo});
+            }
+        });
+    } catch (err) {
+        return res.status(404).send({status: 404, message: "there's no user with the given id", error: err.message});
     }
 });
 
