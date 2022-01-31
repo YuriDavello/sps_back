@@ -64,7 +64,6 @@ router.post('/authenticate', async (req, res) => {
 
         user.password = undefined;
 
-        // gerar token jwt
         const token = generateToken({  id: user.id });
         return res.status(200).send({ 
             user: user,
