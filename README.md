@@ -2,7 +2,7 @@
  ## Conexão Banco de Dados(MongoDB)
  - O projeto foi desenvolvido utilizando docker, dessa maneira não é necessária a instalação do banco no seu sistema.
  ## Como Testar a Aplicação
- - Primeiramente é necessário clonar o repósitorio utilizando o comando a seguir -> git clone https://github.com/YuriDavello/sps-react.git
+ - Primeiramente é necessário clonar o repósitorio utilizando o comando a seguir -> git clone https://github.com/YuriDavello/sps-back.git
  - Com o projeto clonado em um diretório de preferência, abra a pasta no editor que preferir
  - Serão necessários três passos para a aplicação rodar, primeiramente digite -> "npm install"
  - Segundamente, crie uma pasta chamada "config" dentro da pasta "src", logo após crie um arquivo com o nome "secret.json" dentro de config e passe um objeto chave-valor com a chave sendo "key" e o valor o seu secret de preferência, em formato json dentro desse arquivo.
