@@ -13,7 +13,7 @@ const generateToken = (params = {}) => {
 };
 
 router.post('/register', async (req, res) => {
-
+    console.log(req.body);
     const {email} = req.body;
 
     try {
