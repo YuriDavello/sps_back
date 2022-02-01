@@ -7,7 +7,6 @@
  - Serão necessários três passos para a aplicação rodar, primeiramente digite -> "npm install"
  - Segundamente, crie uma pasta chamada "config" dentro da pasta "src", logo após crie um arquivo com o nome "secret.json" dentro de config e passe um objeto chave-valor com a chave sendo "key" e o valor o seu secret de preferência, em formato json dentro desse arquivo.
  - Por último, como o projeto foi feito utilizando Docker, iremos incializá-lo com o comando -> "docker-compose up"
- </br>
-obs: é necessário ter o Docker instalado na sua máquina
+ - obs: é necessário ter o Docker instalado na sua máquina
  - Pronto, o projeto será inicializado na sua máquina
  - O projeto está configurado para rodar na porta http://localhost:9000
