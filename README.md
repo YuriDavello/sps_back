@@ -1,4 +1,4 @@
-# Documentação Projeto React
+# Documentação Projeto Node
  ## Conexão Banco de Dados(MongoDB)
  - O projeto foi desenvolvido utilizando docker, dessa maneira não é necessária a instalação do banco no seu sistema.
  ## Como Testar a Aplicação
